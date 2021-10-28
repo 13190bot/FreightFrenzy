@@ -24,7 +24,7 @@ public class TankDrive extends LinearOpMode {
         waitForStart();
 
         if (isStopRequested()) return;
-
+        //cool
         while (opModeIsActive()) {
             double lefty = this.gamepad1.left_stick_y;
             double rightx = this.gamepad1.right_stick_x/2;
