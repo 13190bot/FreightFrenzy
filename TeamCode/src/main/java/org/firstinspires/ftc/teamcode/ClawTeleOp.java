@@ -9,9 +9,9 @@ public class ClawTeleOp extends LinearOpMode {
 
     private Servo servo;
 
-    Override
+    @Override
     public void runOpMode() {
-        servo = hardwareMap.servo.get(Servo.class, "")
+        servo = hardwareMap.servo.get("servo");
     }
 
 }
