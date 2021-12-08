@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp
+@TeleOp(name="TankDrive", group="TeleOp practice")
 public class TankDrive extends LinearOpMode {
 
     private DcMotor leftMotor, rightMotor;
