@@ -28,7 +28,7 @@ public class TankDrive extends LinearOpMode {
             double lefty = this.gamepad1.left_stick_y;
             double rightx = this.gamepad1.right_stick_x/2;
 
-            double denominator = Math.max(Math.abs(lefty) + Math.abs(rightx), 1);
+            double denominator = Math.max(Math.abs(lefty) + Math.abs(rightx), 2);
             double leftPower = (-lefty + rightx) / denominator;
             double rightPower = (lefty + rightx) / denominator;
 
