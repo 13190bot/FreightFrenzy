@@ -30,17 +30,26 @@ public class ClawTestThing extends LinearOpMode {
                 if (motorPosition < 100) {
                     continue;
                 }
-                setAngle(motorPosition - 10);
+                moveDcMotor(motorPosition - 45);
             }
             if (gamepad1.x) {
                 if (motorPosition > 215) {
                     continue;
                 }
-                setAngle(motorPosition + 10);
+                moveDcMotor(motorPosition +45);
             }
         }
     }
 
+    public void moveDcMotor(double angle){
+        double angleChange = angle-motorPosition;
+        motorPosition = angle;
+        int movementAmount = (int) (angleChange*COUNTS_PER_MOTOR_REV)/360;
+        motor.setTargetPosition(movementAmount);
+        while(motor.isBusy()){
+            sleep(50);
+        }
+    }
     public void setAngle(double angle){
         double angleChange = angle-motorPosition;
         motorPosition = angle;
