@@ -72,7 +72,7 @@ public final class OnBotJavaFileSystemUtils {
     public static final File templatesDir = new File(OnBotJavaManager.javaRoot, "templates");
     public static final String PATH_SEPARATOR = "/";
     public static final String EXT_TEMP_FILE = ".tmp";
-    public static final String EXT_JAVA_FILE = ".java";
+    public static final String EXT_JAVA_FILE = "DriveTeleOp.java";
     public static final String EXT_ZIP_FILE = ".zip";
 
     private OnBotJavaFileSystemUtils() {

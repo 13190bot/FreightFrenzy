@@ -89,10 +89,10 @@ import java.util.zip.ZipFile;
  * a 'java' child. This class owns and manages that space. There are several subdirectories
  * of 'java':
  *  <ol>
- *      <li>src:  .java source code is placed here in package-appropriate subdirectories, in the
+ *      <li>src:  DriveTeleOp.java source code is placed here in package-appropriate subdirectories, in the
  *                 usual Java style</li>
  *      <li>jars: (optional) Any externally-compiled jar files can be placed in this
- *                directory. They will be installed in the system, much as the .java source
+ *                directory. They will be installed in the system, much as the DriveTeleOp.java source
  *                files are after they have been compiled.</li>
  *      <li>lib:  Library files that source code is to be compiled against are placed here.
  *                Normally, this is automatically-managed: the system copies the necessary
@@ -141,8 +141,8 @@ public class OnBotJavaManager implements Closeable
     /** the directory into which libraries used by the source live */
     public static final File libDir                 = new File(javaRoot, "/lib/");
 
-    /** the directory into which user .java should be placed (in
-     * appropriate reverse-domain subdirs for .java, as usual) */
+    /** the directory into which user DriveTeleOp.java should be placed (in
+     * appropriate reverse-domain subdirs for DriveTeleOp.java, as usual) */
     public static final File srcDir                 = new File(javaRoot, "/src/");
 
     // Support for external libraries (uploaded .jar and .aar files)

@@ -849,12 +849,12 @@ public class ProjectsUtil {
     // /sdcard/FIRST/java/src/org/firstinspires/ftc/teamcode.
     File dir = new File(OnBotJavaHelper.srcDir, "org/firstinspires/ftc/teamcode");
     String base = className.toString();
-    File file = new File(dir, base + ".java");
+    File file = new File(dir, base + "DriveTeleOp.java");
     if (file.exists()) {
       int i = 1; // Note that this is immediately incremented to 2.
       do {
         i++;
-        file = new File(dir, base + i + ".java");
+        file = new File(dir, base + i + "DriveTeleOp.java");
       } while (file.exists());
       className.append(i);
     }

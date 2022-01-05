@@ -60,16 +60,26 @@ public class ClawAutonomous extends LinearOpMode {
     public void dropAtLevel(int level) throws InterruptedException {
         if (level == 1) {
             dc.setPower(0.2);
-            sleep(500);
+            sleep(400);
             dc.setPower(0);
 
+            //open claw and drop
             servo3.setPosition(1);
             sleep(100);
             servo3.setPosition(0);
 
             dc.setPower(-0.2);
+            sleep(100);
+            dc.setPower(0);
+        } else if (level == 2) {
+            dc.setPower(0.2);
             sleep(300);
             dc.setPower(0);
+
+            //open claw and drop
+            servo3.setPosition(1);
+            sleep(100);
+            servo3.setPosition(0);
         }
     }
 }

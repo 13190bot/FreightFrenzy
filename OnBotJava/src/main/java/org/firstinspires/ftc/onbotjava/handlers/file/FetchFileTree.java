@@ -64,7 +64,7 @@ public class FetchFileTree implements WebHandler {
      */
     private NanoHTTPD.Response projectTree() {
     /*
-    <li>src:  .java source code is placed here in package-appropriate subdirectories, in the
+    <li>src:  DriveTeleOp.java source code is placed here in package-appropriate subdirectories, in the
         *                 usual Java style</li>
      */
         final String srcPath = OnBotJavaManager.srcDir.getAbsolutePath();

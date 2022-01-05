@@ -132,7 +132,7 @@ public class OnBotJavaCompiler
             {
             @Override public boolean test(File file)
                 {
-                return file.getName().endsWith(".java");
+                return file.getName().endsWith("DriveTeleOp.java");
                 }
             });
         }
