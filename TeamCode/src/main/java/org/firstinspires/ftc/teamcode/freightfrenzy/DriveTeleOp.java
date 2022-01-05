@@ -13,6 +13,9 @@ public class DriveTeleOp extends LinearOpMode {
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("back_right_motor"));
         DcMotor backRightMotor = hardwareMap.dcMotor.get("back_left_motor");
 
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+
         waitForStart();
 
         while (opModeIsActive()) {
@@ -25,6 +28,12 @@ public class DriveTeleOp extends LinearOpMode {
             double backLeftPower = (y - x + rx) / denominator;
             double frontRightPower = (y - x - rx) / denominator;
             double backRightPower = (y + x - rx) / denominator;
+
+            telemetry.addData("FrontLeftPower", frontLeftPower);
+            telemetry.addData("BackLeftPower", backLeftPower);
+            telemetry.addData("FrontRightPower", frontRightPower);
+            telemetry.addData("BackRightPower", backRightPower);
+            telemetry.update();
 
             frontLeftMotor.setPower(frontLeftPower);
             backLeftMotor.setPower(backLeftPower);
