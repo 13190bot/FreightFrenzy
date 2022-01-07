@@ -26,10 +26,10 @@ public class DriveTeleOp extends LinearOpMode {
             double rx = this.gamepad1.right_stick_x;
 
             double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-            double frontLeftPower = (-y - x + rx) / denominator;
-            double backLeftPower = (-y + x - rx) / denominator;
-            double frontRightPower = (y - x - rx) / denominator;
-            double backRightPower = (y + x + rx) / denominator;
+            double frontLeftPower = (-y - rx - x) / denominator;
+            double backLeftPower = (-y - rx + x) / denominator;
+            double frontRightPower = (y - rx - x) / denominator;
+            double backRightPower = (y - rx + x) / denominator;
 
             frontLeftMotor.setPower(frontLeftPower);
             backLeftMotor.setPower(backLeftPower);
