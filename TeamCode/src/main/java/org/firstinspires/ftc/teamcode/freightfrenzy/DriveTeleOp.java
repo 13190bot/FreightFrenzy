@@ -11,9 +11,9 @@ public class DriveTeleOp extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException{
         frontLeftMotor = hardwareMap.dcMotor.get("front_left_motor");
-        backLeftMotor = hardwareMap.dcMotor.get("front_left_motor");
-        frontRightMotor = hardwareMap.dcMotor.get("back_right_motor");
-        backRightMotor = hardwareMap.dcMotor.get("back_left_motor");
+        backLeftMotor = hardwareMap.dcMotor.get("back_left_motor");
+        frontRightMotor = hardwareMap.dcMotor.get("front_right_motor");
+        backRightMotor = hardwareMap.dcMotor.get("back_right_motor");
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
