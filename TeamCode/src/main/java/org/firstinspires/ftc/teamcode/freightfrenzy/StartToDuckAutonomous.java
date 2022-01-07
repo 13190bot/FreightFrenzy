@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 
-@Autonomous(name = "")
-public class AutonomousDriveStrafeTest extends LinearOpMode{
+@Autonomous(name = "StartToDuckAutonomous")
+public class StartToDuckAutonomous extends LinearOpMode{
 
     @Override
     public void runOpMode() throws InterruptedException {
