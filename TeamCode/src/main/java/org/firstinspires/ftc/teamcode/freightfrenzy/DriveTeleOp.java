@@ -11,9 +11,9 @@ public class DriveTeleOp extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException{
         frontLeftMotor = hardwareMap.dcMotor.get("front_left_motor");
-        backLeftMotor = hardwareMap.dcMotor.get("front_left_motor");
-        frontRightMotor = hardwareMap.dcMotor.get("back_right_motor");
-        backRightMotor = hardwareMap.dcMotor.get("back_left_motor");
+        backLeftMotor = hardwareMap.dcMotor.get("back_left_motor");
+        frontRightMotor = hardwareMap.dcMotor.get("front_right_motor");
+        backRightMotor = hardwareMap.dcMotor.get("back_right_motor");
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -26,10 +26,10 @@ public class DriveTeleOp extends LinearOpMode {
             double rx = this.gamepad1.right_stick_x;
 
             double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-            double frontLeftPower = (-y - x + rx) / denominator;
-            double backLeftPower = (-y + x - rx) / denominator;
+            double frontLeftPower = (-y - x - rx) / denominator;
+            double backLeftPower = (-y - x + rx) / denominator;
             double frontRightPower = (y - x - rx) / denominator;
-            double backRightPower = (y + x + rx) / denominator;
+            double backRightPower = (y - x + rx) / denominator;
 
             frontLeftMotor.setPower(frontLeftPower);
             backLeftMotor.setPower(backLeftPower);
