@@ -27,16 +27,16 @@ public class ClawTeleOp extends template {
             if(extensionMotor.getPower() != 0 && !gamepad1.right_bumper){
                 extensionMotor.setPower(0.5);
             }
-            if(gamepad1.y){
+            if(gamepad1.y && !isRotationBusy()){
                 toTopLevel();
             }
-            if(gamepad1.b){
+            if(gamepad1.b && !isRotationBusy()){
                 toMiddleLevel();
             }
-            if(gamepad1.a){
+            if(gamepad1.a && !isRotationBusy()){
                 toBottomLevel();
             }
-            if(gamepad1.x){
+            if(gamepad1.x && !isRotationBusy()){
                 toPickupPosition();
             }
             if(gamepad1.right_trigger>0.2){

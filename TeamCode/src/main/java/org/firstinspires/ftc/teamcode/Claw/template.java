@@ -21,6 +21,7 @@ public abstract class template extends LinearOpMode {
         telemetry.addData("Status", "Initializing Arm Motors");
         telemetry.update();
         armRotationMotor = hardwareMap.get(DcMotor.class, "armRotationMotor");
+        //TODO update starting position to correct position
         armRotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armRotationMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
