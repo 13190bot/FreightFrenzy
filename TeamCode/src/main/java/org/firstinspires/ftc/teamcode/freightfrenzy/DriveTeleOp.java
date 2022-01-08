@@ -7,13 +7,14 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp(name="DriveTeleOp", group = "TeleOpCode")
 public class DriveTeleOp extends LinearOpMode {
 
-    private DcMotor frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor;
+    private DcMotor frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor, duckMotor;
 
     public void runOpMode() throws InterruptedException{
         frontLeftMotor = hardwareMap.dcMotor.get("front_left_motor");
         backLeftMotor = hardwareMap.dcMotor.get("back_left_motor");
         frontRightMotor = hardwareMap.dcMotor.get("front_right_motor");
         backRightMotor = hardwareMap.dcMotor.get("back_right_motor");
+        duckMotor = hardwareMap.dcMotor.get("duckMotor");
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -35,6 +36,10 @@ public class DriveTeleOp extends LinearOpMode {
             backLeftMotor.setPower(backLeftPower);
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
+
+            if (this.gamepad1.left_bumper) {
+                duckMotor.setPower(0.5);
+            }
 
             telemetry.addData("FrontLeftPower", frontLeftPower);
             telemetry.addData("BackLeftPower", backLeftPower);
