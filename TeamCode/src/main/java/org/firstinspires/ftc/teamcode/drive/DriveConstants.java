@@ -4,28 +4,28 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 /*
- * Constants shared between multiple drive types.
+ * Constants shared between multiple org.firstinspires.ftc.teamcode.drive types.
  *
  * TODO: Tune or adjust the following constants to fit your robot. Note that the non-final
  * fields may also be edited through the dashboard (connect to the robot's WiFi network and
  * navigate to https://192.168.49.1:8080/dash). Make sure to save the values here after you
  * adjust them in the dashboard; **config variable changes don't persist between app restarts**.
  *
- * These are not the only parameters; some are located in the localizer classes, drive base classes,
+ * These are not the only parameters; some are located in the localizer classes, org.firstinspires.ftc.teamcode.drive base classes,
  * and op modes themselves.
  */
 @Config
-public class DriveConstants {
+public class    DriveConstants {
 
     /*
      * These are motor constants that should be listed online for your motors.
      */
-    public static final double TICKS_PER_REV = 1;
-    public static final double MAX_RPM = 1;
+    public static final double TICKS_PER_REV = 537.7 ;
+    public static final double MAX_RPM = 	312 ;
 
     /*
-     * Set RUN_USING_ENCODER to true to enable built-in hub velocity control using drive encoders.
-     * Set this flag to false if drive encoders are not present and an alternative localization
+     * Set RUN_USING_ENCODER to true to enable built-in hub velocity control using org.firstinspires.ftc.teamcode.drive encoders.
+     * Set this flag to false if org.firstinspires.ftc.teamcode.drive encoders are not present and an alternative localization
      * method is in use (e.g., tracking wheels).
      *
      * If using the built-in motor velocity PID, update MOTOR_VELO_PID with the tuned coefficients
@@ -43,13 +43,13 @@ public class DriveConstants {
      * angular distances although most angular parameters are wrapped in Math.toRadians() for
      * convenience. Make sure to exclude any gear ratio included in MOTOR_CONFIG from GEAR_RATIO.
      */
-    public static double WHEEL_RADIUS = 2; // in
+    public static double WHEEL_RADIUS = 1.89; // in
     public static double GEAR_RATIO = 1; // output (wheel) speed / input (motor) speed
-    public static double TRACK_WIDTH = 1; // in
+    public static double TRACK_WIDTH = 16; // in
 
     /*
-     * These are the feedforward parameters used to model the drive motor behavior. If you are using
-     * the built-in velocity PID, *these values are fine as is*. However, if you do not have drive
+     * These are the feedforward parameters used to model the org.firstinspires.ftc.teamcode.drive motor behavior. If you are using
+     * the built-in velocity PID, *these values are fine as is*. However, if you do not have org.firstinspires.ftc.teamcode.drive
      * motor encoders or have elected not to use them for velocity control, these values should be
      * empirically tuned.
      */
@@ -64,10 +64,11 @@ public class DriveConstants {
      * small and gradually increase them later after everything is working. All distance units are
      * inches.
      */
-    public static double MAX_VEL = 30;
+    public static double MAX_VEL = 61.75;
+
     public static double MAX_ACCEL = 30;
-    public static double MAX_ANG_VEL = Math.toRadians(60);
-    public static double MAX_ANG_ACCEL = Math.toRadians(60);
+    public static double MAX_ANG_VEL = Math.toRadians(180);
+    public static double MAX_ANG_ACCEL = Math.toRadians(180);
 
 
     public static double encoderTicksToInches(double ticks) {
