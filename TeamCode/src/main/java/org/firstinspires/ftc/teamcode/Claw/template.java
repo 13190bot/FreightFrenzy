@@ -47,20 +47,17 @@ public abstract class template extends LinearOpMode {
     }
     public void toBottomLevel(){
         double targetAngle = 170;
-        double amountExtended = 0.1;
-        moveThings(targetAngle, amountExtended);
+        moveThings(targetAngle);
         directionServo.setPosition(1);
     }
     public void toMiddleLevel(){
         double targetAngle = 145;
-        double amountExtended = 0.4;
-        moveThings(targetAngle, amountExtended);
+        moveThings(targetAngle);
         directionServo.setPosition(0.5);
     }
     public void toTopLevel(){
         double targetAngle = 120;
-        double amountExtended = 1;
-        moveThings(targetAngle, amountExtended);
+        moveThings(targetAngle);
         directionServo.setPosition(0);
     }
     public boolean isRotationTooFar(){
@@ -72,18 +69,10 @@ public abstract class template extends LinearOpMode {
             return true;
         }else return false;
     }
-    private void moveThings(double targetAngle, double extensionAmount){
+    private void moveThings(double targetAngle){
         int targetPosition = (int) (targetAngle*COUNTS_PER_MOTOR_REV*GEAR_CHANGE)/360;
         armRotationMotor.setTargetPosition(targetPosition);
         armRotationMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armRotationMotor.setPower(0.5);
     }
 }
-
-//pickup button
-//arm motor limiting
-//preset heights for each level
-//extending
-//spin one way to intake something - continuous
-//try and do something like it can work no matter the start position?
-
