@@ -137,6 +137,7 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
                       telemetry.addData("# Object Detected", updatedRecognitions.size());
                       // step through the list of recognitions and display boundary info.
                       int i = 0;
+                      boolean isDuckDetected = false;
                       for (Recognition recognition : updatedRecognitions) {
                         telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
                         telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
@@ -144,6 +145,13 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
                         telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
                                 recognition.getRight(), recognition.getBottom());
                         i++;
+
+                        if (recognition.getLabel().equals("Duck")) {
+                            isDuckDetected = true;
+                            telemetry.addData("Object detected", "Duck");
+                        } else {
+                            isDuckDetected = false;
+                        }
                       }
                       telemetry.update();
                     }
@@ -180,6 +188,7 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
        tfodParameters.minResultConfidence = 0.8f;
        tfodParameters.isModelTensorFlow2 = true;
        tfodParameters.inputSize = 320;
+       tfodParameters.useObjectTracker = false;
        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
        tfod.loadModelFromFile(TFOD_MODEL_ASSET, LABELS);
     }

@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public abstract class template extends LinearOpMode {
 
     static final double COUNTS_PER_MOTOR_REV = 1992.6;
+    static final double GEAR_CHANGE = 2.0;
 
     public DcMotor armRotationMotor;
     public DcMotor intakeMotor;
@@ -63,7 +64,7 @@ public abstract class template extends LinearOpMode {
         directionServo.setPosition(0);
     }
     public boolean isRotationTooFar(){
-        if(armRotationMotor.getCurrentPosition() > 180 && armRotationMotor.getPower()>0){
+        if(armRotationMotor.getCurrentPosition() > 180*COUNTS_PER_MOTOR_REV*GEAR_CHANGE && armRotationMotor.getPower()>0){
             armRotationMotor.setPower(0);
             return true;
         }else if(armRotationMotor.getCurrentPosition() < 0 && armRotationMotor.getPower() < 0){
@@ -72,7 +73,7 @@ public abstract class template extends LinearOpMode {
         }else return false;
     }
     private void moveThings(double targetAngle, double extensionAmount){
-        int targetPosition = (int) (targetAngle*COUNTS_PER_MOTOR_REV)/360;
+        int targetPosition = (int) (targetAngle*COUNTS_PER_MOTOR_REV*GEAR_CHANGE)/360;
         armRotationMotor.setTargetPosition(targetPosition);
         armRotationMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armRotationMotor.setPower(0.5);
