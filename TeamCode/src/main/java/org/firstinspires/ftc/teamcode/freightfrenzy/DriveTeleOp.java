@@ -7,13 +7,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp(name="DriveTeleOp", group = "TeleOpCode")
 public class DriveTeleOp extends LinearOpMode {
 
-    private DcMotor frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor, duckMotor;
+    private DcMotor frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor, duckMotor;
 
     public void runOpMode() throws InterruptedException{
-        frontLeftMotor = hardwareMap.dcMotor.get("front_left_motor");
-        backLeftMotor = hardwareMap.dcMotor.get("back_left_motor");
-        frontRightMotor = hardwareMap.dcMotor.get("front_right_motor");
-        backRightMotor = hardwareMap.dcMotor.get("back_right_motor");
+        frontLeftMotor = hardwareMap.dcMotor.get("frontLeft");
+        rearLeftMotor = hardwareMap.dcMotor.get("rearLeft");
+        frontRightMotor = hardwareMap.dcMotor.get("frontRight");
+        rearRightMotor = hardwareMap.dcMotor.get("rearRight");
         duckMotor = hardwareMap.dcMotor.get("duckMotor");
 
         telemetry.addData("Status", "Initialized");
@@ -28,23 +28,23 @@ public class DriveTeleOp extends LinearOpMode {
 
             double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
             double frontLeftPower = (-y - rx - x) / denominator;
-            double backLeftPower = (-y - rx + x) / denominator;
+            double rearLeftPower = (-y - rx + x) / denominator;
             double frontRightPower = (y - rx - x) / denominator;
-            double backRightPower = (y - rx + x) / denominator;
+            double rearRightPower = (y - rx + x) / denominator;
 
             frontLeftMotor.setPower(frontLeftPower);
-            backLeftMotor.setPower(backLeftPower);
+            rearLeftMotor.setPower(rearLeftPower);
             frontRightMotor.setPower(frontRightPower);
-            backRightMotor.setPower(backRightPower);
+            rearRightMotor.setPower(rearRightPower);
 
             if (this.gamepad1.left_bumper) {
                 duckMotor.setPower(0.5);
             }
 
             telemetry.addData("FrontLeftPower", frontLeftPower);
-            telemetry.addData("BackLeftPower", backLeftPower);
+            telemetry.addData("BackLeftPower", rearLeftPower);
             telemetry.addData("FrontRightPower", frontRightPower);
-            telemetry.addData("BackRightPower", backRightPower);
+            telemetry.addData("BackRightPower", rearRightPower);
             telemetry.update();
         }
     }
