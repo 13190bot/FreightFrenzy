@@ -9,7 +9,6 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 public class FinalTeleOp extends DriveTeleOp{
 
     private DcMotor frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor, duckMotor;
-    private SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
     public void runOpMode() {
         frontLeftMotor = hardwareMap.dcMotor.get("frontLeft");
@@ -17,6 +16,8 @@ public class FinalTeleOp extends DriveTeleOp{
         frontRightMotor = hardwareMap.dcMotor.get("frontRight");
         rearRightMotor = hardwareMap.dcMotor.get("rearRight");
         duckMotor = hardwareMap.dcMotor.get("duckMotor");
+
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();

@@ -1,9 +1,7 @@
 package org.firstinspires.ftc.teamcode.objectDetection;
-/*
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
-import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
 
@@ -16,20 +14,16 @@ public class FindDuckPlace extends ConceptTensorFlowObjectDetectionWebcam {
         initVuforia();
         initTfod();
 
-
-
-
-
         telemetry.addData(">", "Press Play to start op mode");
         telemetry.update();
         waitForStart();
 
         if (opModeIsActive()) {
             while (opModeIsActive()) {
-                if (webcam.getTfod() != null) {
+                if (getTfod() != null) {
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
-                    List<Recognition> updatedRecognitions = webcam.getTfod().getUpdatedRecognitions();
+                    List<Recognition> updatedRecognitions = getTfod().getUpdatedRecognitions();
                     if (updatedRecognitions != null) {
                         telemetry.addData("# Object Detected", updatedRecognitions.size());
                         // step through the list of recognitions and display boundary info.
@@ -57,5 +51,3 @@ public class FindDuckPlace extends ConceptTensorFlowObjectDetectionWebcam {
         }
     }
 }
-
- */
