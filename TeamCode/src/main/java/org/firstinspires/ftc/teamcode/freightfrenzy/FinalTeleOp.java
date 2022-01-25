@@ -21,6 +21,10 @@ public class FinalTeleOp extends template {
         rearRightMotor = hardwareMap.dcMotor.get("rearRight");
         duckMotor = hardwareMap.dcMotor.get("duckMotor");
 
+        armRotationMotor = hardwareMap.dcMotor.get("armRotation");
+        intakeMotor = hardwareMap.dcMotor.get("intake");
+        directionServo = hardwareMap.servo.get("directionServo");
+
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         initialize();
