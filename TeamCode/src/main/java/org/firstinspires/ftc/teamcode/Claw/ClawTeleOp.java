@@ -17,7 +17,7 @@ public class ClawTeleOp extends template {
             telemetry.addData("rotationPosition", armRotationMotor.getCurrentPosition());
             telemetry.addData("intakeMotorPower", intakeMotor.getPower());
             if(isRotationTooFar()){
-                telemetry.addData("Status: ", "too far");
+                telemetry.addData("ERROR: ", "too far");
             }
             if(gamepad1.y && !isRotationBusy()){
                 toTopLevel();
@@ -32,10 +32,10 @@ public class ClawTeleOp extends template {
                 toPickupPosition();
             }
             if(gamepad1.right_trigger>0.2){
-                intakeMotor.setPower(0.5);
+                intakeMotor.setPower(0.7);
             }
             if(gamepad1.left_trigger>0.2){
-                intakeMotor.setPower(-0.5);
+                intakeMotor.setPower(-0.7);
             }
             if(gamepad1.right_trigger<=0.2 && intakeMotor.getPower() > 0){
                 intakeMotor.setPower(0);

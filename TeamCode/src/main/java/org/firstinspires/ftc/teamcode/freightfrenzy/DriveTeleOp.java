@@ -35,6 +35,9 @@ public class DriveTeleOp extends LinearOpMode {
             if (this.gamepad1.left_bumper) {
                 duckMotor.setPower(0.5);
             }
+            if(this.gamepad1.right_bumper){
+                duckMotor.setPower(1);
+            }
 
             telemetry.addData("FrontLeftPower", frontLeftMotor.getPower());
             telemetry.addData("BackLeftPower", rearLeftMotor.getPower());

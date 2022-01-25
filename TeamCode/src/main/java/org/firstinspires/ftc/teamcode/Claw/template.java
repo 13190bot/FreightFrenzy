@@ -73,6 +73,22 @@ public abstract class template extends LinearOpMode {
         int targetPosition = (int) (targetAngle*COUNTS_PER_MOTOR_REV*GEAR_CHANGE)/360;
         armRotationMotor.setTargetPosition(targetPosition);
         armRotationMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        armRotationMotor.setPower(0.5);
+        double currentPower = 0.2;
+        while (Math.abs(armRotationMotor.getCurrentPosition() - targetPosition) > (10*COUNTS_PER_MOTOR_REV*GEAR_CHANGE)/360) {
+            currentPower += 0.01;
+            armRotationMotor.setPower(currentPower);
+        }
+        double subtractionFactor = currentPower/3;
+        while(Math.abs(armRotationMotor.getCurrentPosition() - targetPosition) > (6*COUNTS_PER_MOTOR_REV*GEAR_CHANGE)/360) {
+            currentPower -= subtractionFactor;
+            armRotationMotor.setPower(currentPower);
+        }
+        while(Math.abs(armRotationMotor.getCurrentPosition() - targetPosition) > (3*COUNTS_PER_MOTOR_REV*GEAR_CHANGE)/360) {
+            currentPower -= subtractionFactor;
+            armRotationMotor.setPower(currentPower);
+        }
+        while(Math.abs(armRotationMotor.getCurrentPosition() - targetPosition) > (0.25*COUNTS_PER_MOTOR_REV*GEAR_CHANGE)/360) {
+            armRotationMotor.setPower(0);
+        }
     }
 }
