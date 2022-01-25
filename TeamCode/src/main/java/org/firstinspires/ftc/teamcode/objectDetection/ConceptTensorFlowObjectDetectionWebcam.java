@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 public abstract class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
@@ -42,6 +41,10 @@ public abstract class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMod
      */
     private TFObjectDetector tfod;
 
+    public TFObjectDetector getTfod() {
+        return tfod;
+    }
+
     /**
      * Initialize the Vuforia localization engine.
      */
@@ -52,7 +55,7 @@ public abstract class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMod
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
+        parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam");
 
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
@@ -73,9 +76,5 @@ public abstract class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMod
        tfodParameters.useObjectTracker = true;
        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
        tfod.loadModelFromFile(TFOD_MODEL_ASSET, LABELS);
-    }
-
-    public void activateTfod(){
-
     }
 }

@@ -7,17 +7,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 @TeleOp(name="DriveTeleOp", group = "TeleOpCode")
-public class DriveTeleOp extends LinearOpMode {
+public class DriveTeleOp extends LinearOpMode{
 
     private DcMotor frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor, duckMotor;
     private SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
     public void runOpMode() throws InterruptedException{
-        frontLeftMotor = hardwareMap.dcMotor.get("frontLeft");
-        rearLeftMotor = hardwareMap.dcMotor.get("rearLeft");
-        frontRightMotor = hardwareMap.dcMotor.get("frontRight");
-        rearRightMotor = hardwareMap.dcMotor.get("rearRight");
-        duckMotor = hardwareMap.dcMotor.get("duckMotor");
+
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -33,7 +29,7 @@ public class DriveTeleOp extends LinearOpMode {
             drive.update();
 
             if (this.gamepad1.left_bumper) {
-                duckMotor.setPower(0.5);
+                duckMotor.setPower(0.25);
             }
             if(this.gamepad1.right_bumper){
                 duckMotor.setPower(1);
