@@ -1,14 +1,16 @@
 package org.firstinspires.ftc.teamcode.freightfrenzy;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import org.firstinspires.ftc.teamcode.Claw.*;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 @TeleOp(name="DriveTeleOp", group = "TeleOpCode")
-public class DriveTeleOp extends template {
+public class DriveTeleOp extends LinearOpMode {
 
     private DcMotor frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor, duckMotor;
+    private SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
     public void runOpMode() throws InterruptedException{
 
@@ -16,68 +18,24 @@ public class DriveTeleOp extends template {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        initialize();
-
         waitForStart();
 
         while (opModeIsActive()) {
-            double y = -this.gamepad1.left_stick_y;
-            double x = this.gamepad1.left_stick_x;
-            double rx = this.gamepad1.right_stick_x;
+            double horizontal = gamepad1.left_stick_x;
+            double vertical = gamepad1.left_stick_y;
+            double angle = gamepad1.right_stick_x;
 
-            double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-            double frontLeftPower = (-y - rx - x) / denominator;
-            double rearLeftPower = (-y - rx + x) / denominator;
-            double frontRightPower = (y - rx - x) / denominator;
-            double rearRightPower = (y - rx + x) / denominator;
-
-            frontLeftMotor.setPower(frontLeftPower);
-            rearLeftMotor.setPower(rearLeftPower);
-            frontRightMotor.setPower(frontRightPower);
-            rearRightMotor.setPower(rearRightPower);
+            drive.setWeightedDrivePower(new Pose2d(vertical, horizontal, angle)); // in roadrunner x is vertical and y is horizontal
+            drive.update();
 
             if (this.gamepad1.left_bumper) {
                 duckMotor.setPower(0.5);
             }
 
-            telemetry.addData("FrontLeftPower", frontLeftPower);
-            telemetry.addData("BackLeftPower", rearLeftPower);
-            telemetry.addData("FrontRightPower", frontRightPower);
-            telemetry.addData("BackRightPower", rearRightPower);
-            telemetry.update();
-
-
-
-
-            telemetry.addData("rotationPosition", armRotationMotor.getCurrentPosition());
-            telemetry.addData("intakeMotorPower", intakeMotor.getPower());
-            if(isRotationTooFar()){
-                telemetry.addData("Status: ", "too far");
-            }
-            if(gamepad1.y && !isRotationBusy()){
-                toTopLevel();
-            }
-            if(gamepad1.b && !isRotationBusy()){
-                toMiddleLevel();
-            }
-            if(gamepad1.a && !isRotationBusy()){
-                toBottomLevel();
-            }
-            if(gamepad1.x && !isRotationBusy()){
-                toPickupPosition();
-            }
-            if(gamepad1.right_trigger>0.2){
-                intakeMotor.setPower(0.5);
-            }
-            if(gamepad1.left_trigger>0.2){
-                intakeMotor.setPower(-0.5);
-            }
-            if(gamepad1.right_trigger<=0.2 && intakeMotor.getPower() > 0){
-                intakeMotor.setPower(0);
-            }
-            if(gamepad1.left_trigger<=0.2 && intakeMotor.getPower() < 0){
-                intakeMotor.setPower(0);
-            }
+            telemetry.addData("FrontLeftPower", frontLeftMotor.getPower());
+            telemetry.addData("BackLeftPower", rearLeftMotor.getPower());
+            telemetry.addData("FrontRightPower", frontRightMotor.getPower());
+            telemetry.addData("BackRightPower", rearRightMotor.getPower());
             telemetry.update();
         }
     }
