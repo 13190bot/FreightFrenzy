@@ -42,6 +42,7 @@ public class FinalTeleOp extends template {
             drive.update();
 
             if (this.gamepad1.left_bumper) {
+                
                 duckMotor.setPower(0.5);
             }
 
