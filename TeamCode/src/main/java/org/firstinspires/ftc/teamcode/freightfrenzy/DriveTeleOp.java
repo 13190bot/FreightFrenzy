@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 @TeleOp(name="DriveTeleOp", group = "TeleOpCode")
-public class DriveTeleOp extends LinearOpMode {
+public class DriveTeleOp extends LinearOpMode{
 
     private DcMotor frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor, duckMotor;
     private SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
@@ -29,7 +29,7 @@ public class DriveTeleOp extends LinearOpMode {
             drive.update();
 
             if (this.gamepad1.left_bumper) {
-                duckMotor.setPower(0.5);
+                duckMotor.setPower(0.25);
             }
 
             telemetry.addData("FrontLeftPower", frontLeftMotor.getPower());
