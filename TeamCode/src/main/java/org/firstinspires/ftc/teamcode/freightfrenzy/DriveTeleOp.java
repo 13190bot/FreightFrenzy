@@ -11,11 +11,7 @@ public class DriveTeleOp extends template {
     private DcMotor frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor, duckMotor;
 
     public void runOpMode() throws InterruptedException{
-        frontLeftMotor = hardwareMap.dcMotor.get("frontLeft");
-        rearLeftMotor = hardwareMap.dcMotor.get("rearLeft");
-        frontRightMotor = hardwareMap.dcMotor.get("frontRight");
-        rearRightMotor = hardwareMap.dcMotor.get("rearRight");
-        duckMotor = hardwareMap.dcMotor.get("duckMotor");
+
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
