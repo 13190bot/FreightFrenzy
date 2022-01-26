@@ -22,43 +22,32 @@ public class backredstarttoduck extends LinearOpMode{
 
         Pose2d startPose = new Pose2d(0, 0, Math.toRadians(0));
 
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-
-
+        SampleMecanumDrive drive =new SampleMecanumDrive(hardwareMap);
 
         drive.setPoseEstimate(startPose);
 
         Trajectory moveForward = drive.trajectoryBuilder(new Pose2d(0, 0))
-                .lineToLinearHeading(new Pose2d(40, -19, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(30, 0, Math.toRadians(0)))
                 .build();
 
-        Trajectory toDuck = drive.trajectoryBuilder(new Pose2d(0, 0))
-
-                .lineToLinearHeading(new Pose2d(7, 25,Math.toRadians(275.89)))
-
-                //.splineTo(new Vector2d(0,6.53))
+        Trajectory toParking = drive.trajectoryBuilder(moveForward.end())
+                .lineToLinearHeading(new Pose2d(25, 30, Math.toRadians(90)))
                 .build();
 
-        Trajectory back3 = drive.trajectoryBuilder(toDuck.end())
-                .back(3)
+        Trajectory moveBack = drive.trajectoryBuilder(toParking.end())
+                .forward(10)
                 .build();
-
-        Trajectory toParking = drive.trajectoryBuilder(back3.end())
-                .lineToLinearHeading(new Pose2d(35, 29, Math.toRadians(22)))
-                .build();
-
 
 
         waitForStart();
 
-
-
-        if(isStopRequested()) return;
+        if (isStopRequested()) return;
 
         drive.followTrajectory(moveForward);
-        drive.followTrajectory(toDuck);
-        drive.followTrajectory(back3);
+        drive.turn(Math.toRadians(140));
         drive.followTrajectory(toParking);
+        drive.turn(Math.toRadians(385));
+        drive.followTrajectory(moveBack);
 
 
     }
