@@ -10,7 +10,7 @@ public class FindDuckPlace extends ConceptTensorFlowObjectDetectionWebcam {
     @Override
     public void runOpMode() {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
-        // first.
+        // first
         initVuforia();
         initTfod();
 
@@ -21,6 +21,8 @@ public class FindDuckPlace extends ConceptTensorFlowObjectDetectionWebcam {
         if (opModeIsActive()) {
             while (opModeIsActive()) {
                 if (getTfod() != null) {
+                    getTfod().activate();
+                    getTfod().setZoom(2.5, 16.0/9.0);
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
                     List<Recognition> updatedRecognitions = getTfod().getUpdatedRecognitions();
