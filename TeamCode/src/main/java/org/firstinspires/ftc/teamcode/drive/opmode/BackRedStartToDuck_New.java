@@ -35,18 +35,22 @@ public class BackRedStartToDuck_New extends LinearOpMode {
                 .forward(33)
                 .build();
 
+        Trajectory toDuckTest = drive.trajectoryBuilder(moveForward.end())
+                        .lineToLinearHeading(new Pose2d(11.4, 6.7, Math.toRadians(5.29)))
+                                .build();
+
 
         waitForStart();
 
         if (isStopRequested()) return;
 
         drive.followTrajectory(moveForward);
-        drive.turn(Math.toRadians(135));
-        drive.followTrajectory(toParking);
-        drive.turn(Math.toRadians(-135));
-        drive.followTrajectory(moveBack);
+        //drive.turn(Math.toRadians(135));
+        //drive.followTrajectory(toParking);
+        //drive.turn(Math.toRadians(-135));
+        //drive.followTrajectory(moveBack);
         //Servo causing duck to spin
-        drive.followTrajectory(forwardStuff);
+        //drive.followTrajectory(forwardStuff);
 
 
 
