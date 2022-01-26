@@ -28,28 +28,23 @@ public class backredstarttoduck extends LinearOpMode{
 
         drive.setPoseEstimate(startPose);
 
-        Trajectory moveforward = drive.trajectoryBuilder(new Pose2d(0, 0))
-                .back(30)
+        Trajectory moveForward = drive.trajectoryBuilder(new Pose2d(0, 0))
+                .lineToLinearHeading(new Pose2d(40, -19, Math.toRadians(0)))
                 .build();
 
-        Trajectory traj1 = drive.trajectoryBuilder(moveforward.end())
+        Trajectory toDuck = drive.trajectoryBuilder(new Pose2d(0, 0))
 
-                .lineToLinearHeading(new Pose2d(10, 50,Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(7, 25,Math.toRadians(275.89)))
 
-
-
+                //.splineTo(new Vector2d(0,6.53))
                 .build();
 
-        Trajectory back3 = drive.trajectoryBuilder(traj1.end())
-                .back(10)
-                .build();
-
-        Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
-                .splineTo(new Vector2d(46.65, -48.21), Math.toRadians(0))
+        Trajectory back3 = drive.trajectoryBuilder(toDuck.end())
+                .back(3)
                 .build();
 
         Trajectory toParking = drive.trajectoryBuilder(back3.end())
-                .lineToLinearHeading(new Pose2d(51, 38, Math.toRadians(0.1)))
+                .lineToLinearHeading(new Pose2d(35, 29, Math.toRadians(22)))
                 .build();
 
 
@@ -60,11 +55,11 @@ public class backredstarttoduck extends LinearOpMode{
 
         if(isStopRequested()) return;
 
-        drive.followTrajectory(moveforward);
-        drive.followTrajectory(traj1);
-        //drive.followTrajectory(back3);
+        drive.followTrajectory(moveForward);
+        drive.followTrajectory(toDuck);
+        drive.followTrajectory(back3);
         drive.followTrajectory(toParking);
-        //  drive.followTrajectory(traj2);
+
 
     }
 }
