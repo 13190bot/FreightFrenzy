@@ -15,10 +15,10 @@ public class FinalTeleOp extends template {
     public Servo directionServo;
 
     public void runOpMode() {
-        frontLeftMotor = hardwareMap.dcMotor.get("frontLeft");
-        rearLeftMotor = hardwareMap.dcMotor.get("rearLeft");
-        frontRightMotor = hardwareMap.dcMotor.get("frontRight");
-        rearRightMotor = hardwareMap.dcMotor.get("rearRight");
+        frontLeftMotor = hardwareMap.dcMotor.get("leftFront");
+        rearLeftMotor = hardwareMap.dcMotor.get("leftRear");
+        frontRightMotor = hardwareMap.dcMotor.get("rightFront");
+        rearRightMotor = hardwareMap.dcMotor.get("rightRear");
         duckMotor = hardwareMap.dcMotor.get("duckMotor");
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
@@ -38,8 +38,9 @@ public class FinalTeleOp extends template {
             drive.update();
 
             if (this.gamepad1.left_bumper) {
-                
-                duckMotor.setPower(0.5);
+                duckMotor.setPower(-0.5);
+            } else {
+                duckMotor.setPower(0);
             }
 
             telemetry.addData("FrontLeftPower", frontLeftMotor.getPower());
