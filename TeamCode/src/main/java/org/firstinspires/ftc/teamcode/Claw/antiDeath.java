@@ -11,8 +11,12 @@ public class antiDeath extends LinearOpMode{
     public void runOpMode() {
         armRotationMotor = hardwareMap.get(DcMotor.class, "rotationMotor");
         armRotationMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        telemetry.addData("Status:", "init");
+        telemetry.update();
         waitForStart();
         while (opModeIsActive()) {
+            telemetry.addData("Status:", "runnin");
+            telemetry.update();
             double x = gamepad1.left_stick_x;
             telemetry.addData("Power:", armRotationMotor.getPower());
 
