@@ -22,7 +22,6 @@ public class FindDuckPlace extends ConceptTensorFlowObjectDetectionWebcam {
             while (opModeIsActive()) {
                 if (getTfod() != null) {
                     getTfod().activate();
-                    getTfod().setZoom(2.5, 16.0/9.0);
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
                     List<Recognition> updatedRecognitions = getTfod().getUpdatedRecognitions();
