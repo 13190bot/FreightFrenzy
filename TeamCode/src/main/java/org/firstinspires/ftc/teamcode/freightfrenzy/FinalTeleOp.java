@@ -34,9 +34,9 @@ public class FinalTeleOp extends template {
         waitForStart();
 
         while (opModeIsActive()) {
-            double horizontal = gamepad1.left_stick_x;
-            double vertical = gamepad1.left_stick_y;
-            double angle = gamepad1.right_stick_x;
+            double horizontal = -gamepad1.left_stick_x;
+            double vertical = -gamepad1.left_stick_y;
+            double angle = -gamepad1.right_stick_x;
 
             drive.setWeightedDrivePower(new Pose2d(vertical, horizontal, angle)); // in roadrunner x is vertical and y is horizontal
             drive.update();
