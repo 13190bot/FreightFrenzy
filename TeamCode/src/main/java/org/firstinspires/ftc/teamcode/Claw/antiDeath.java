@@ -17,10 +17,10 @@ public class antiDeath extends LinearOpMode{
         while (opModeIsActive()) {
             telemetry.addData("Status:", "runnin");
             telemetry.update();
-            double x = gamepad1.left_stick_x;
+            double x = -gamepad1.left_stick_x;
             telemetry.addData("Power:", armRotationMotor.getPower());
 
-            armRotationMotor.setPower(x/2);
+            armRotationMotor.setPower(x);
         }
     }
 }

@@ -11,7 +11,7 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.har
 @TeleOp
 public class FinalTeleOp extends template {
 
-    private DcMotor frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor, duckMotor, armRotationMotor, intakeMotor;
+    private DcMotor frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor, duckMotor;
     public Servo directionServo;
 
     public void runOpMode() {
@@ -20,10 +20,6 @@ public class FinalTeleOp extends template {
         frontRightMotor = hardwareMap.dcMotor.get("frontRight");
         rearRightMotor = hardwareMap.dcMotor.get("rearRight");
         duckMotor = hardwareMap.dcMotor.get("duckMotor");
-
-        armRotationMotor = hardwareMap.dcMotor.get("armRotation");
-        intakeMotor = hardwareMap.dcMotor.get("intake");
-        directionServo = hardwareMap.servo.get("directionServo");
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
