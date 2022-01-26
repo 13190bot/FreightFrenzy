@@ -18,10 +18,8 @@ public abstract class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMod
    *  FreightFrenzy_BC.tflite  0: Ball,  1: Cube
    *  FreightFrenzy_DM.tflite  0: Duck,  1: Marker
    */
-    private static final String TFOD_MODEL_ASSET = "/sdcard/FIRST/vision/FreightFrenzy_BCDM.tflite"; //For OpenRC, loaded from internal storage to reduce APK size
+    private static final String TFOD_MODEL_ASSET = "/sdcard/FIRST/vision/FreightFrenzy_DM.tflite"; //For OpenRC, loaded from internal storage to reduce APK size
     private static final String[] LABELS = {
-      "Ball",
-      "Cube",
       "Duck",
       "Marker"
     };
@@ -70,7 +68,7 @@ public abstract class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMod
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
             "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
-       tfodParameters.minResultConfidence = 0.4f;
+       tfodParameters.minResultConfidence = 0.6f;
        tfodParameters.isModelTensorFlow2 = true;
        tfodParameters.inputSize = 320;
        tfodParameters.useObjectTracker = true;

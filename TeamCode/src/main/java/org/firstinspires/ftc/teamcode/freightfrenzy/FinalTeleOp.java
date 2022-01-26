@@ -11,19 +11,15 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.har
 @TeleOp
 public class FinalTeleOp extends template {
 
-    private DcMotor frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor, duckMotor, armRotationMotor, intakeMotor;
+    private DcMotor frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor, duckMotor;
     public Servo directionServo;
 
     public void runOpMode() {
-        frontLeftMotor = hardwareMap.dcMotor.get("frontLeft");
-        rearLeftMotor = hardwareMap.dcMotor.get("rearLeft");
-        frontRightMotor = hardwareMap.dcMotor.get("frontRight");
-        rearRightMotor = hardwareMap.dcMotor.get("rearRight");
+        frontLeftMotor = hardwareMap.dcMotor.get("leftFront");
+        rearLeftMotor = hardwareMap.dcMotor.get("leftRear");
+        frontRightMotor = hardwareMap.dcMotor.get("rightFront");
+        rearRightMotor = hardwareMap.dcMotor.get("rightRear");
         duckMotor = hardwareMap.dcMotor.get("duckMotor");
-
-        armRotationMotor = hardwareMap.dcMotor.get("armRotation");
-        intakeMotor = hardwareMap.dcMotor.get("intake");
-        directionServo = hardwareMap.servo.get("directionServo");
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
@@ -34,16 +30,17 @@ public class FinalTeleOp extends template {
         waitForStart();
 
         while (opModeIsActive()) {
-            double horizontal = gamepad1.left_stick_x;
-            double vertical = gamepad1.left_stick_y;
-            double angle = gamepad1.right_stick_x;
+            double horizontal = -gamepad1.left_stick_x;
+            double vertical = -gamepad1.left_stick_y;
+            double angle = -gamepad1.right_stick_x;
 
             drive.setWeightedDrivePower(new Pose2d(vertical, horizontal, angle)); // in roadrunner x is vertical and y is horizontal
             drive.update();
 
             if (this.gamepad1.left_bumper) {
-                
-                duckMotor.setPower(0.5);
+                duckMotor.setPower(-0.5);
+            } else {
+                duckMotor.setPower(0);
             }
 
             telemetry.addData("FrontLeftPower", frontLeftMotor.getPower());
