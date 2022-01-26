@@ -6,21 +6,19 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public abstract class template extends LinearOpMode {
 
-    static final double COUNTS_PER_MOTOR_REV = 1992.6;
-    static final double GEAR_CHANGE = 2.0;
+    static final double COUNTS_PER_MOTOR_REV = 537.7;
+    static final double GEAR_CHANGE = 6.0;
 
     public DcMotor armRotationMotor;
     public DcMotor intakeMotor;
     public Servo directionServo;
+    public boolean manual = false;
 
     public void initialize(){
-        //TODO flip the rotation directions if necessary
         telemetry.addData("Status", "Initializing Arm Motors");
         telemetry.update();
         armRotationMotor = hardwareMap.get(DcMotor.class, "rotationMotor");
-        //TODO update starting position to correct position
-        armRotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        armRotationMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        armRotationMotor.setDirection(DcMotor.Direction.REVERSE);
 
         intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -33,7 +31,7 @@ public abstract class template extends LinearOpMode {
         }else{
             if(armRotationMotor.getMode() != DcMotor.RunMode.RUN_USING_ENCODER ) {
                 armRotationMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            }if(armRotationMotor.getPower() != 0){
+            }if(armRotationMotor.getPower() != 0 && manual == false){
                 armRotationMotor.setPower(0);
             }
             return false;
@@ -61,11 +59,7 @@ public abstract class template extends LinearOpMode {
         directionServo.setPosition(0);
     }
     public boolean isRotationTooFar(){
-        if(armRotationMotor.getCurrentPosition() > 180*COUNTS_PER_MOTOR_REV*GEAR_CHANGE && armRotationMotor.getPower()>0){
-            armRotationMotor.setPower(0);
-            return true;
-        }else if(armRotationMotor.getCurrentPosition() < 0 && armRotationMotor.getPower() < 0){
-            armRotationMotor.setPower(0);
+        if(armRotationMotor.getCurrentPosition() > 180*COUNTS_PER_MOTOR_REV*GEAR_CHANGE/360 && armRotationMotor.getPower()>0){
             return true;
         }else return false;
     }
@@ -73,22 +67,6 @@ public abstract class template extends LinearOpMode {
         int targetPosition = (int) (targetAngle*COUNTS_PER_MOTOR_REV*GEAR_CHANGE)/360;
         armRotationMotor.setTargetPosition(targetPosition);
         armRotationMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        double currentPower = 0.2;
-        while (Math.abs(armRotationMotor.getCurrentPosition() - targetPosition) > (10*COUNTS_PER_MOTOR_REV*GEAR_CHANGE)/360) {
-            currentPower += 0.01;
-            armRotationMotor.setPower(currentPower);
-        }
-        double subtractionFactor = currentPower/3;
-        while(Math.abs(armRotationMotor.getCurrentPosition() - targetPosition) > (6*COUNTS_PER_MOTOR_REV*GEAR_CHANGE)/360) {
-            currentPower -= subtractionFactor;
-            armRotationMotor.setPower(currentPower);
-        }
-        while(Math.abs(armRotationMotor.getCurrentPosition() - targetPosition) > (3*COUNTS_PER_MOTOR_REV*GEAR_CHANGE)/360) {
-            currentPower -= subtractionFactor;
-            armRotationMotor.setPower(currentPower);
-        }
-        while(Math.abs(armRotationMotor.getCurrentPosition() - targetPosition) > (0.25*COUNTS_PER_MOTOR_REV*GEAR_CHANGE)/360) {
-            armRotationMotor.setPower(0);
-        }
+        armRotationMotor.setPower(0.5);
     }
 }
