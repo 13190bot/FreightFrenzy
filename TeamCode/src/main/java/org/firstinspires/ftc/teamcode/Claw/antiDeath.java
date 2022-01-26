@@ -19,9 +19,9 @@ public class antiDeath extends LinearOpMode{
             telemetry.update();
             double x = -gamepad1.left_stick_x;
             telemetry.addData("Power:", armRotationMotor.getPower());
-            double currentPosition = (armRotationMotor.getCurrentPosition()*360)/(537.7*10);
+            double currentPosition = (armRotationMotor.getCurrentPosition()*360)/(537.7*6);
             telemetry.addData("Encoder:", currentPosition);
-            armRotationMotor.setPower(x*0.6);
+            armRotationMotor.setPower(x*0.5);
         }
     }
 }
