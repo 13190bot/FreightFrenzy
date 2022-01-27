@@ -19,10 +19,14 @@ public class ClawTeleOp extends template {
         waitForStart();
 
         while (opModeIsActive()) {
-            telemetry.addData("rotationPosition", armRotationMotor.getCurrentPosition());
+            telemetry.addData("rotationPosition", (armRotationMotor.getCurrentPosition()*360)/(537.7*6));
             telemetry.addData("intakeMotorPower", intakeMotor.getPower());
-            if(isRotationTooFar() || limit.getValue() > 0.2){
+            telemetry.addData("limitSwitch", limit.isPressed());
+            telemetry.addData("servoPos", directionServo.getPosition());
+            if(limit.isPressed()){
                 armRotationMotor.setPower(0);
+                armRotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                armRotationMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 telemetry.addData("ERROR: ", "too far");
             }
             if(gamepad2.y && !isRotationBusy()){
@@ -38,10 +42,10 @@ public class ClawTeleOp extends template {
                 toPickupPosition();
             }
             if(gamepad2.right_trigger>0.2){
-                intakeMotor.setPower(0.7);
+                intakeMotor.setPower(1);
             }
             if(gamepad2.left_trigger>0.2){
-                intakeMotor.setPower(-0.7);
+                intakeMotor.setPower(-1);
             }
             if(gamepad2.right_trigger<=0.2 && intakeMotor.getPower() > 0){
                 intakeMotor.setPower(0);
@@ -50,16 +54,25 @@ public class ClawTeleOp extends template {
                 intakeMotor.setPower(0);
             }
             double x = gamepad2.left_stick_x;
-            if((x>0.2 || x<-0.2) && !isRotationBusy()){
+            if((x>0.2) && !isRotationBusy()){
                 manual = true;
                 if(x>0.5){
                     x=0.5;
                 }
                 armRotationMotor.setPower(x);
+            }else if((x<-0.2)&&!isRotationBusy() && !limit.isPressed()){
+                manual = true;
+                if(x<-0.5){
+                    x=-0.5;
+                }
+                armRotationMotor.setPower(x);
             }else{
                 manual = false;
+                if(!isRotationBusy()){
+                    armRotationMotor.setPower(0);
+                }
             }
-            if(gamepad2.right_bumper){
+            if(gamepad2.left_bumper){
                 armRotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 armRotationMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }

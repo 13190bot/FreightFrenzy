@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public abstract class template extends LinearOpMode {
 
     static final double COUNTS_PER_MOTOR_REV = 537.7;
-    static final double GEAR_CHANGE = 6.0;
+    static final double GEAR_CHANGE = 4.0;
 
     public DcMotor armRotationMotor;
     public DcMotor intakeMotor;
@@ -41,22 +41,22 @@ public abstract class template extends LinearOpMode {
         armRotationMotor.setTargetPosition(0);
         armRotationMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armRotationMotor.setPower(0.5);
-        directionServo.setPosition(1);
+        directionServo.setPosition(0.66);
     }
     public void toBottomLevel(){
-        double targetAngle = 170;
+        double targetAngle = 155;
         moveThings(targetAngle);
-        directionServo.setPosition(1);
+        directionServo.setPosition(0.3);
     }
     public void toMiddleLevel(){
-        double targetAngle = 145;
+        double targetAngle = 130;
         moveThings(targetAngle);
-        directionServo.setPosition(0.5);
+        directionServo.setPosition(0.33);
     }
     public void toTopLevel(){
-        double targetAngle = 120;
+        double targetAngle = 95;
         moveThings(targetAngle);
-        directionServo.setPosition(0);
+        directionServo.setPosition(0.51);
     }
     public boolean isRotationTooFar(){
         if(armRotationMotor.getCurrentPosition() > 180*COUNTS_PER_MOTOR_REV*GEAR_CHANGE/360 && armRotationMotor.getPower()>0){

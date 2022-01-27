@@ -4,6 +4,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import org.firstinspires.ftc.teamcode.Claw.template;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
@@ -13,6 +14,7 @@ public class FinalTeleOp extends template {
 
     private DcMotor frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor, duckMotor;
     public Servo directionServo;
+    public TouchSensor limit;
 
     public void runOpMode() {
         frontLeftMotor = hardwareMap.dcMotor.get("leftFront");
@@ -20,6 +22,7 @@ public class FinalTeleOp extends template {
         frontRightMotor = hardwareMap.dcMotor.get("rightFront");
         rearRightMotor = hardwareMap.dcMotor.get("rightRear");
         duckMotor = hardwareMap.dcMotor.get("duckMotor");
+        limit = hardwareMap.touchSensor.get("limit");
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
@@ -49,34 +52,68 @@ public class FinalTeleOp extends template {
             telemetry.addData("BackRightPower", rearRightMotor.getPower());
             telemetry.update();
 
-            telemetry.addData("rotationPosition", armRotationMotor.getCurrentPosition());
+            telemetry.addData("rotationPosition", (armRotationMotor.getCurrentPosition()*360)/(537.7*6));
             telemetry.addData("intakeMotorPower", intakeMotor.getPower());
-            if(isRotationTooFar()){
-                telemetry.addData("Status: ", "too far");
+            telemetry.addData("limitSwitch", limit.isPressed());
+            if(limit.isPressed()){
+                armRotationMotor.setPower(0);
+                armRotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                armRotationMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                telemetry.addData("ERROR: ", "too far");
             }
-            if(gamepad1.y && !isRotationBusy()){
+            if(gamepad2.y && !isRotationBusy()){
                 toTopLevel();
             }
-            if(gamepad1.b && !isRotationBusy()){
+            if(gamepad2.b && !isRotationBusy()){
                 toMiddleLevel();
             }
-            if(gamepad1.a && !isRotationBusy()){
+            if(gamepad2.a && !isRotationBusy()){
                 toBottomLevel();
             }
-            if(gamepad1.x && !isRotationBusy()){
+            if(gamepad2.x && !isRotationBusy()){
                 toPickupPosition();
             }
-            if(gamepad1.right_trigger>0.2){
-                intakeMotor.setPower(0.5);
+            if(gamepad2.right_trigger>0.2){
+                intakeMotor.setPower(1);
             }
-            if(gamepad1.left_trigger>0.2){
-                intakeMotor.setPower(-0.5);
+            if(gamepad2.left_trigger>0.2){
+                intakeMotor.setPower(-1);
             }
-            if(gamepad1.right_trigger<=0.2 && intakeMotor.getPower() > 0){
+            if(gamepad2.right_trigger<=0.2 && intakeMotor.getPower() > 0){
                 intakeMotor.setPower(0);
             }
-            if(gamepad1.left_trigger<=0.2 && intakeMotor.getPower() < 0){
+            if(gamepad2.left_trigger<=0.2 && intakeMotor.getPower() < 0){
                 intakeMotor.setPower(0);
+            }
+            double x = gamepad2.left_stick_x;
+            if((x>0.2) && !isRotationBusy()){
+                manual = true;
+                if(x>0.5){
+                    x=0.5;
+                }
+                armRotationMotor.setPower(x);
+            }else if((x<-0.2)&&!isRotationBusy() && !limit.isPressed()){
+                manual = true;
+                if(x<-0.5){
+                    x=-0.5;
+                }
+                armRotationMotor.setPower(x);
+            }else{
+                manual = false;
+                if(!isRotationBusy()){
+                    armRotationMotor.setPower(0);
+                }
+            }
+            if(gamepad2.left_bumper){
+                armRotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                armRotationMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            }
+            double servoInput = gamepad2.right_stick_x;
+            if(servoInput>0.2){
+                directionServo.setPosition(directionServo.getPosition()+0.01);
+            }
+            if(servoInput<-0.2){
+                directionServo.setPosition(directionServo.getPosition()-0.01);
             }
             telemetry.update();
         }
