@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.freightfrenzy;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+
+@Disabled
 public class DuckAutonomous13190 {
     /*
     This program will operate the robot to just score the ducks and park in case the alliance robot has better autonomous

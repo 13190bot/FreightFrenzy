@@ -36,10 +36,10 @@ public class DuckLeftMiddle extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
+        int detect = 0;
         if (opModeIsActive()) {
-            while (opModeIsActive()) {
-                int detect = 0;
-                if (tfod != null && detect < 2) {
+            while (detect < 2) {
+                if (tfod != null) {
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                     if (updatedRecognitions != null) {
                         telemetry.addData("# Object Detected", updatedRecognitions.size());
@@ -59,6 +59,7 @@ public class DuckLeftMiddle extends LinearOpMode {
                             }
                             i++;
                         }
+                        detect++;
                         telemetry.update();
                     }
                 }
