@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.objectDetection;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import java.util.List;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 
-@Autonomous
+@TeleOp
 public class DuckLeftMiddle extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "/sdcard/FIRST/vision/FreightFrenzy_BCDM.tflite";
     private static final String[] LABELS = {
@@ -32,13 +32,11 @@ public class DuckLeftMiddle extends LinearOpMode {
             tfod.activate();
         }
 
-        telemetry.addData(">", "Press Play to start op mode");
-        telemetry.update();
         waitForStart();
 
-        int detect = 0;
+
         if (opModeIsActive()) {
-            while (detect < 2) {
+            while (opModeIsActive()) {
                 if (tfod != null) {
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                     if (updatedRecognitions != null) {
@@ -59,7 +57,6 @@ public class DuckLeftMiddle extends LinearOpMode {
                             }
                             i++;
                         }
-                        detect++;
                         telemetry.update();
                     }
                 }
