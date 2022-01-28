@@ -13,7 +13,6 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.har
 public class FinalTeleOp extends template {
 
     private DcMotor frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor, duckMotor;
-    public Servo directionServo;
     public TouchSensor limit;
 
     public void runOpMode() {
@@ -55,6 +54,7 @@ public class FinalTeleOp extends template {
             telemetry.addData("rotationPosition", (armRotationMotor.getCurrentPosition()*360)/(537.7*6));
             telemetry.addData("intakeMotorPower", intakeMotor.getPower());
             telemetry.addData("limitSwitch", limit.isPressed());
+            telemetry.addData("servoPos", directionServo.getPosition());
             if(limit.isPressed()){
                 armRotationMotor.setPower(0);
                 armRotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
