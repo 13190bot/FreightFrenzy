@@ -29,7 +29,7 @@ public class BackRedStartToDuck_New2 extends LinearOpMode {
                 .build();
 
         Trajectory traj3 = drive.trajectoryBuilder(traj2.end())
-                .back(22)
+                .back(26)
                 .build();
 
         Trajectory traj4 = drive.trajectoryBuilder(traj3.end())
