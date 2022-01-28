@@ -20,7 +20,7 @@ public class frontRedStartToParking_New extends LinearOpMode {
         drive.setPoseEstimate(startPose);
 
         Trajectory moveForward = drive.trajectoryBuilder(new Pose2d(0, 0, Math.toRadians(0)))
-                .forward(20)
+                .forward(24)
                 .build();
 
         Trajectory toParking = drive.trajectoryBuilder(moveForward.end().plus(new Pose2d(0, 0, Math.toRadians(-90))))
@@ -33,7 +33,7 @@ public class frontRedStartToParking_New extends LinearOpMode {
         if (isStopRequested()) return;
 
         drive.followTrajectory(moveForward);
-        drive.turn(Math.toRadians(-120));
+        drive.turn(Math.toRadians(-115));
         drive.followTrajectory(toParking);
 
 
