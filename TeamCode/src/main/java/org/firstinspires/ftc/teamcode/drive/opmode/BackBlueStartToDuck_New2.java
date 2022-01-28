@@ -19,7 +19,21 @@ public class BackBlueStartToDuck_New2 extends LinearOpMode {
         duckMotor = hardwareMap.get(DcMotor.class, "duckMotor");
 
         drive.setPoseEstimate(startPose);
+        Trajectory strafeRight = drive.trajectoryBuilder(startPose)
+                .strafeRight(40)
+                .build();
+        Trajectory forwardTraj = drive.trajectoryBuilder(strafeRight.end())
+                .forward(40)
+                .build();
+        Trajectory toPark = drive.trajectoryBuilder(forwardTraj.end())
+                .strafeRight(20)
+                .build();
 
+        drive.followTrajectory(strafeRight);
+        drive.followTrajectory(forwardTraj);
+        drive.followTrajectory(toPark);
+
+/*
         Trajectory traj1 = drive.trajectoryBuilder(startPose)
                 .strafeRight(20)
                 .build();
@@ -65,5 +79,7 @@ public class BackBlueStartToDuck_New2 extends LinearOpMode {
 
         drive.followTrajectory(traj5);
         drive.followTrajectory(traj6);
+        */
+
     }
 }
