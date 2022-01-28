@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
-@Autonomous(name="BackRedStartToDuck_New2")
+@Autonomous(name="BackBlueStartToDuck_New2")
 public class BackBlueStartToDuck_New2 extends LinearOpMode {
     DcMotor duckMotor;
     @Override
