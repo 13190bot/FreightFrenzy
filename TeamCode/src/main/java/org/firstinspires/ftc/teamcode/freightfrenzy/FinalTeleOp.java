@@ -14,6 +14,8 @@ public class FinalTeleOp extends template {
 
     private DcMotor frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor, duckMotor;
     public TouchSensor limit;
+    static final double MAX_POSITION = 0.8;
+    static final double MIN_POSITION = 0.3;
 
     public void runOpMode() {
         frontLeftMotor = hardwareMap.dcMotor.get("leftFront");
@@ -45,74 +47,57 @@ public class FinalTeleOp extends template {
                 duckMotor.setPower(0);
             }
 
+            if (this.gamepad1.right_trigger > 0.4) {
+                duckMotor.setPower(0.5);
+            } else {
+                duckMotor.setPower(0);
+            }
+
             telemetry.addData("FrontLeftPower", frontLeftMotor.getPower());
             telemetry.addData("BackLeftPower", rearLeftMotor.getPower());
             telemetry.addData("FrontRightPower", frontRightMotor.getPower());
             telemetry.addData("BackRightPower", rearRightMotor.getPower());
-            telemetry.update();
 
             telemetry.addData("rotationPosition", (armRotationMotor.getCurrentPosition()*360)/(537.7*6));
             telemetry.addData("intakeMotorPower", intakeMotor.getPower());
             telemetry.addData("limitSwitch", limit.isPressed());
             telemetry.addData("servoPos", directionServo.getPosition());
+            telemetry.addData("armPower", armRotationMotor.getPower());
             if(limit.isPressed()){
                 armRotationMotor.setPower(0);
                 armRotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 armRotationMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 telemetry.addData("ERROR: ", "too far");
             }
-            if(gamepad2.y && !isRotationBusy()){
-                toTopLevel();
-            }
-            if(gamepad2.b && !isRotationBusy()){
-                toMiddleLevel();
-            }
-            if(gamepad2.a && !isRotationBusy()){
-                toBottomLevel();
-            }
-            if(gamepad2.x && !isRotationBusy()){
-                toPickupPosition();
-            }
             if(gamepad2.right_trigger>0.2){
                 intakeMotor.setPower(1);
             }
-            if(gamepad2.left_trigger>0.2){
+            else if(gamepad2.left_trigger>0.2){
                 intakeMotor.setPower(-1);
-            }
-            if(gamepad2.right_trigger<=0.2 && intakeMotor.getPower() > 0){
-                intakeMotor.setPower(0);
-            }
-            if(gamepad2.left_trigger<=0.2 && intakeMotor.getPower() < 0){
+            }else{
                 intakeMotor.setPower(0);
             }
             double x = gamepad2.left_stick_x;
-            if((x>0.2) && !isRotationBusy()){
-                manual = true;
-                if(x>0.5){
-                    x=0.5;
-                }
-                armRotationMotor.setPower(x);
-            }else if((x<-0.2)&&!isRotationBusy() && !limit.isPressed()){
-                manual = true;
-                if(x<-0.5){
-                    x=-0.5;
-                }
-                armRotationMotor.setPower(x);
-            }else{
-                manual = false;
-                if(!isRotationBusy()){
-                    armRotationMotor.setPower(0);
-                }
+            telemetry.addData("arm almoa", x);
+            if ((armRotationMotor.getCurrentPosition()*360)/(537.7*6) < 125 && x < 0) {
+                armRotationMotor.setPower(x*0.6);
+            } else if ((armRotationMotor.getCurrentPosition()*360)/(537.7*6) < 50 && x > 0){
+                armRotationMotor.setPower(x*0.4);
+            } else if (x > 0) {
+                armRotationMotor.setPower(x*0.6);
+            } else {
+                armRotationMotor.setPower(x*0.5);
             }
+
             if(gamepad2.left_bumper){
                 armRotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 armRotationMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
             double servoInput = gamepad2.right_stick_x;
-            if(servoInput>0.2){
+            if(servoInput>0.2 && directionServo.getPosition() < MAX_POSITION){
                 directionServo.setPosition(directionServo.getPosition()+0.01);
             }
-            if(servoInput<-0.2){
+            if(servoInput<-0.2 && directionServo.getPosition() > MIN_POSITION){
                 directionServo.setPosition(directionServo.getPosition()-0.01);
             }
             telemetry.update();

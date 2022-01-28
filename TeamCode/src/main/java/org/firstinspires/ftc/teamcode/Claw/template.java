@@ -58,11 +58,12 @@ public abstract class template extends LinearOpMode {
         moveThings(targetAngle);
         directionServo.setPosition(0.51);
     }
+    /*
     public boolean isRotationTooFar(){
         if(armRotationMotor.getCurrentPosition() > 180*COUNTS_PER_MOTOR_REV*GEAR_CHANGE/360 && armRotationMotor.getPower()>0){
             return true;
         }else return false;
-    }
+    }*/
     private void moveThings(double targetAngle){
         int targetPosition = (int) (targetAngle*COUNTS_PER_MOTOR_REV*GEAR_CHANGE)/360;
         armRotationMotor.setTargetPosition(targetPosition);

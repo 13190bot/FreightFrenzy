@@ -56,15 +56,11 @@ public class ClawTeleOp extends template {
             double x = gamepad2.left_stick_x;
             if((x>0.2) && !isRotationBusy()){
                 manual = true;
-                if(x>0.5){
-                    x=0.5;
-                }
+                x*=0.55;
                 armRotationMotor.setPower(x);
             }else if((x<-0.2)&&!isRotationBusy() && !limit.isPressed()){
                 manual = true;
-                if(x<-0.5){
-                    x=-0.5;
-                }
+                x*=0.55;
                 armRotationMotor.setPower(x);
             }else{
                 manual = false;
