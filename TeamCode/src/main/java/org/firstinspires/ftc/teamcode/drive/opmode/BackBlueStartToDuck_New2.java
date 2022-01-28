@@ -29,7 +29,7 @@ public class BackBlueStartToDuck_New2 extends LinearOpMode {
                 .build();
 
         Trajectory traj3 = drive.trajectoryBuilder(traj2.end())
-                .back(22)
+                .back(26)
                 .build();
 
         Trajectory traj4 = drive.trajectoryBuilder(traj3.end())
@@ -58,7 +58,7 @@ public class BackBlueStartToDuck_New2 extends LinearOpMode {
         sleep(4000);
         duckMotor.setPower(0);
         drive.followTrajectory(traj4);
-        drive.turn(Math.toRadians(90));
+        drive.turn(Math.toRadians(-90));
 
 
 
