@@ -55,7 +55,7 @@ public class FinalBackRedStartToDuck extends LinearOpMode {
         drive.followTrajectory(traj2);
         drive.turn(Math.toRadians(-90));
         drive.followTrajectory(traj3);
-        duckMotor.setPower(-0.5);
+        duckMotor.setPower(0.5);
         sleep(4000);
         duckMotor.setPower(0);
         drive.followTrajectory(traj4);

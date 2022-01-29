@@ -16,20 +16,23 @@ public class BackBlueStartToDuck_New2 extends LinearOpMode {
         Pose2d startPose = new Pose2d(0, 0, Math.toRadians(0));
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        //duckMotor = hardwareMap.get(DcMotor.class, "duckMotor");
+        duckMotor = hardwareMap.get(DcMotor.class, "duckMotor");
 
         drive.setPoseEstimate(startPose);
         Trajectory strafeRight = drive.trajectoryBuilder(startPose)
-                .strafeRight(40)
+                .strafeRight(37)
                 .build();
         Trajectory forwardTraj = drive.trajectoryBuilder(strafeRight.end())
-                .forward(40)
+                .forward(36)
                 .build();
         Trajectory toPark = drive.trajectoryBuilder(forwardTraj.end())
-                .strafeRight(20)
+                .strafeRight(18)
                 .build();
 
         drive.followTrajectory(strafeRight);
+        duckMotor.setPower(-0.5);
+        sleep(4000);
+        duckMotor.setPower(0);
         drive.followTrajectory(forwardTraj);
         drive.followTrajectory(toPark);
 
