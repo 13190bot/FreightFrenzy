@@ -33,7 +33,7 @@ public class frontBlueStarttoParking extends LinearOpMode {
         if (isStopRequested()) return;
 
         drive.followTrajectory(moveForward);
-        drive.turn(Math.toRadians(135));
+        drive.turn(Math.toRadians(125));
         drive.followTrajectory(toParking);
 
 

@@ -59,7 +59,7 @@ public class FinalBackRedStartToDuck extends LinearOpMode {
         sleep(4000);
         duckMotor.setPower(0);
         drive.followTrajectory(traj4);
-        drive.turn(Math.toRadians(90));
+        drive.turn(Math.toRadians(83));
 
 
 
