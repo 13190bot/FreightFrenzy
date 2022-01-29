@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import org.firstinspires.ftc.teamcode.Claw.template;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
 @TeleOp
@@ -14,7 +15,7 @@ public class FinalTeleOp extends template {
 
     private DcMotor frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor, duckMotor;
     public TouchSensor limit;
-    static final double MAX_POSITION = 0.8;
+    static final double MAX_POSITION = 1;
     static final double MIN_POSITION = 0.3;
 
     public void runOpMode() {
@@ -58,47 +59,46 @@ public class FinalTeleOp extends template {
             telemetry.addData("FrontRightPower", frontRightMotor.getPower());
             telemetry.addData("BackRightPower", rearRightMotor.getPower());
 
-            telemetry.addData("rotationPosition", (armRotationMotor.getCurrentPosition()*360)/(537.7*6));
+            telemetry.addData("rotationPosition", armRotationMotor.getCurrentPosition());
             telemetry.addData("intakeMotorPower", intakeMotor.getPower());
             telemetry.addData("limitSwitch", limit.isPressed());
             telemetry.addData("servoPos", directionServo.getPosition());
             telemetry.addData("armPower", armRotationMotor.getPower());
-            if(limit.isPressed()){
+            if (limit.isPressed()) {
                 armRotationMotor.setPower(0);
                 armRotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 armRotationMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 telemetry.addData("ERROR: ", "too far");
             }
-            if(gamepad2.right_trigger>0.2){
+            if (gamepad2.right_trigger > 0.2) {
                 intakeMotor.setPower(1);
-            }
-            else if(gamepad2.left_trigger>0.2){
+            } else if (gamepad2.left_trigger > 0.2) {
                 intakeMotor.setPower(-1);
-            }else{
+            } else {
                 intakeMotor.setPower(0);
             }
             double x = gamepad2.left_stick_x;
             telemetry.addData("arm almoa", x);
-            if ((armRotationMotor.getCurrentPosition()*360)/(537.7*6) < 125 && x < 0) {
-                armRotationMotor.setPower(x*0.6);
-            } else if ((armRotationMotor.getCurrentPosition()*360)/(537.7*6) < 50 && x > 0){
-                armRotationMotor.setPower(x*0.4);
-            } else if (x > 0) {
-                armRotationMotor.setPower(x*0.6);
+            if (armRotationMotor.getCurrentPosition() < 800 && x > 0) {
+                armRotationMotor.setPower(x * 0.35);
+            } else if (armRotationMotor.getCurrentPosition() > 800 && x > 0) {
+                armRotationMotor.setPower(x * 0.5);
+            } else if (armRotationMotor.getCurrentPosition() > 800 && x < 0) {
+                armRotationMotor.setPower(x * 0.35);
             } else {
-                armRotationMotor.setPower(x*0.5);
+                armRotationMotor.setPower(x * 0.5);
             }
 
-            if(gamepad2.left_bumper){
+            if (gamepad2.left_bumper) {
                 armRotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 armRotationMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
             double servoInput = gamepad2.right_stick_x;
-            if(servoInput>0.2 && directionServo.getPosition() < MAX_POSITION){
-                directionServo.setPosition(directionServo.getPosition()+0.01);
+            if (servoInput > 0.2 && directionServo.getPosition() < MAX_POSITION) {
+                directionServo.setPosition(directionServo.getPosition() + 0.02);
             }
-            if(servoInput<-0.2 && directionServo.getPosition() > MIN_POSITION){
-                directionServo.setPosition(directionServo.getPosition()-0.01);
+            if (servoInput < -0.2 && directionServo.getPosition() > MIN_POSITION) {
+                directionServo.setPosition(directionServo.getPosition() - 0.02);
             }
             telemetry.update();
         }

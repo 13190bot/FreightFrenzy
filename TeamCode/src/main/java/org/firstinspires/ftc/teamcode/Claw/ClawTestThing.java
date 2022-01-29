@@ -5,9 +5,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_TO_POSITION;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 //this program assumes that the arm starts pointing straight up
 //and the servo can rotate 180 degrees with the maximum/minimum pointing straight down
+@Disabled
 @TeleOp
 public class ClawTestThing extends LinearOpMode {
     static final double COUNTS_PER_MOTOR_REV = 1992.6;

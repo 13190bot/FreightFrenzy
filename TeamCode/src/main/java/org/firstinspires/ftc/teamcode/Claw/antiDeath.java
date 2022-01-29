@@ -3,7 +3,9 @@ package org.firstinspires.ftc.teamcode.Claw;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+@Disabled
 @TeleOp
 public class antiDeath extends LinearOpMode{
     public DcMotor armRotationMotor;

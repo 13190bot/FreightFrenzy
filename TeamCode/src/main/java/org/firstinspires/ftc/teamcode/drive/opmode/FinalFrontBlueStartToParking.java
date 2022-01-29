@@ -24,7 +24,7 @@ public class FinalFrontBlueStartToParking extends LinearOpMode {
                 .build();
 
         Trajectory toParking = drive.trajectoryBuilder(moveForward.end().plus(new Pose2d(0, 0, Math.toRadians(90))))
-                .forward(70)
+                .forward(90)
                 .build();
 
 
@@ -33,7 +33,7 @@ public class FinalFrontBlueStartToParking extends LinearOpMode {
         if (isStopRequested()) return;
 
         drive.followTrajectory(moveForward);
-        drive.turn(Math.toRadians(135));
+        drive.turn(Math.toRadians(120));
         drive.followTrajectory(toParking);
 
 
