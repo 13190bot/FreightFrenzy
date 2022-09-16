@@ -9,9 +9,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-@Disabled
-@TeleOp
+@TeleOp(name = "Prateek thing")
 public class MecanumDrive extends LinearOpMode {
+    //
     @Override
     public void runOpMode() throws InterruptedException {
         // Declare our motors
